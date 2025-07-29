@@ -1,0 +1,25 @@
+<#
+.SYNOPSIS
+    The built-in administrator account must be disabled.
+
+.NOTES
+    Author          : Luis Chavez
+    Date Created    : 2025-07-09
+    Last Modified   : 2025-07-09
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000005
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    PS C:\> .\remediate-WN10-SO-000005.ps1
+#>
+
+# Disable the Administrator account
+Disable-LocalUser -Name "Administrator"

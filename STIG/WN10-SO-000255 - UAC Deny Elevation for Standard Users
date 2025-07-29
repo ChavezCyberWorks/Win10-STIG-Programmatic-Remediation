@@ -1,0 +1,32 @@
+<#
+.SYNOPSIS
+    User Account Control must automatically deny elevation requests for standard users.
+
+.NOTES
+    Author          : Luis Chavez
+    Date Created    : 2025-07-09
+    Last Modified   : 2025-07-09
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000255
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    Example:
+    PS C:\> .\remediate-WN10-SO-000255.ps1
+#>
+
+# Ensure the System policy key exists
+New-Item -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Force | Out-Null
+
+# Automatically deny elevation requests for standard users
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" `
+    -Name "ConsentPromptBehaviorUser" -Type DWord -Value 0
+
+Write-Host "[WN10-SO-000255] UAC elevation requests for standard users will be automatically denied." -ForegroundColor Green

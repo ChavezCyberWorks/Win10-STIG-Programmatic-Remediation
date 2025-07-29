@@ -1,0 +1,29 @@
+<#
+.SYNOPSIS
+    The built-in guest account must be disabled.
+
+.NOTES
+    Author          : Luis Chavez
+    Date Created    : 2025-07-09
+    Last Modified   : 2025-07-09
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-SO-000010
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    PS C:\> .\remediate-WN10-SO-000010.ps1
+#>
+
+# Disable the built-in Guest account
+Disable-LocalUser -Name "Guest"
+
+# Optional: Confirm the account is now disabled
+$guest = Get-LocalUser -Name "Guest"
+Write-Output "Guest account is enabled: $($guest.Enabled)"

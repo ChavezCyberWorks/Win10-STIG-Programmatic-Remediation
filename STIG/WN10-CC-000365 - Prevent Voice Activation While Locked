@@ -1,0 +1,35 @@
+<#
+.SYNOPSIS
+    Prevent Windows apps from activating by voice while the system is locked.
+
+.NOTES
+    Author          : Luis Chavez
+    Date Created    : 2025-07-09
+    Last Modified   : 2025-07-09
+    Version         : 1.0
+    CVEs            : N/A
+    Plugin IDs      : N/A
+    STIG-ID         : WN10-CC-000365
+
+.TESTED ON
+    Date(s) Tested  :
+    Tested By       :
+    Systems Tested  :
+    PowerShell Ver. :
+
+.USAGE
+    PS C:\> .\remediate-WN10-CC-000365.ps1
+#>
+
+# Ensure AppPrivacy policy key exists
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" -Force | Out-Null
+
+# Enable the policy: Let Windows apps activate with voice while locked
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" `
+    -Name "LetAppsActivateWithVoiceWhileLocked" -Type DWord -Value 1
+
+# Force deny for all apps by default
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy" `
+    -Name "DefaultForAllApps" -Type DWord -Value 2
+
+Write-Host "[WN10-CC-000365] Voice activation while locked has been prevented." -ForegroundColor Green
